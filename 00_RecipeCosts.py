@@ -1,3 +1,5 @@
+import pandas
+
 # Functions go here
 # Checks user has entered yes or no to a given question
 def yes_no(question):
@@ -43,22 +45,63 @@ def not_blank(question, error):
         
         return response
 
-# Main routine goes here
+# Get ingredients, quantity, and units. Return as a list
+def get_expenses(var_fixed):
+    # Set up dictionaries and list
 
+    ingredient_list = []
+    quantity_list = []
+    unit_list = []
+
+    variable_dict = {
+        "Ingredient": ingredient_list,
+        "Quantity": quantity_list,
+        "Units": unit_list
+    }
+
+    # loop to get component, quantity, item
+    # Get expenses, return list which has the data frame and sub total
+    ingredient_name = ""
+    while ingredient_name.lower() != "xxx":
+        print()
+
+        # Get name, quantity, and item
+        ingredient_name = not_blank("What is the ingredient name? ",
+                                "The ingredient name can't be blank.")
+        if ingredient_name.lower() == "xxx":
+            break
+
+        quantity = num_check("Quantity: ",
+                            "The amount must be a whole number more than zero", int)
+        
+        units = not_blank("What are the units for the item? ",
+                        "The units can't be blank")
+        
+        # Add item, quantity and price to lists
+        ingredient_list.append(ingredient_name)
+        quantity_list.append(quantity)
+        unit_list.append(units)
+
+    expense_frame = pandas.DataFrame(variable_dict)
+
+    return [expense_frame]
+
+# Main routine goes here
 want_instructions = yes_no("Do you want to read the instructions? ").lower()
 
 if want_instructions == "yes" or want_instructions == "y":
-    print("Instructions go here")
+    print("Enter your recipe's ingredients to calculate costs")
 
-print("program continues...")
+recipe_name = not_blank("Whats the name of your recipe? ", "The product name can't be blank.")
+serving_amount = num_check("How many servings? ", "The amount must be a whole number more than zero", int)
+
+variable_expenses = get_expenses("variable")
+variable_frame = variable_expenses[0]
+
+# Printing area
 print()
-
-get_int = num_check("How many ingredients do you need? ",
-                    "Please enter an amount more than 0\n", int)
-
-get_cost = num_check("How much does all of it cost? $",
-                     "Please enter a number more than 0\n", float)
-
+print("Recipe Name:", recipe_name)
+print("Servings:", serving_amount)
 print()
-print(F"You need {get_int} ingredients")
-print(F"It costs: ${get_cost}")
+print(variable_frame)
+print()

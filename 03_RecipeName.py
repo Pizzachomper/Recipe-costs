@@ -1,4 +1,5 @@
 import pandas
+
 # Functions go here
 # Checks user has entered yes or no to a given question
 def yes_no(question):
@@ -44,7 +45,7 @@ def not_blank(question, error):
         
         return response
 
-# Get expenses, return list which has the data frame and sub total
+# Get ingredients, quantity, and units. Return as a list
 def get_expenses(var_fixed):
     # Set up dictionaries and list
 
@@ -65,16 +66,16 @@ def get_expenses(var_fixed):
         print()
 
         # Get name, quantity, and item
-        ingredient_name = not_blank("Item name: ",
-                            "The item name can't be blank.")
+        ingredient_name = not_blank("What is the ingredient name? ",
+                                "The ingredient name can't be blank.")
         if ingredient_name.lower() == "xxx":
             break
 
         quantity = num_check("Quantity: ",
                             "The amount must be a whole number more than zero", int)
         
-        units = num_check("How much for a single item? $",
-                        "The price must be a number more than zero", float)
+        units = not_blank("What are the units for the item? ",
+                        "The units can't be blank")
         
         # Add item, quantity and price to lists
         ingredient_list.append(ingredient_name)
@@ -82,10 +83,21 @@ def get_expenses(var_fixed):
         unit_list.append(units)
 
     expense_frame = pandas.DataFrame(variable_dict)
-    expense_frame = expense_frame.set_index('Item')
 
     return [expense_frame]
-# Main routine
-recipe_name = not_blank("Whats the name of your recipe? ", "The product name can't be blank.")
-serving_amount = num_check("How many servings? ")
 
+# Main routine
+
+recipe_name = not_blank("Whats the name of your recipe? ", "The product name can't be blank.")
+serving_amount = num_check("How many servings? ", "The amount must be a whole number more than zero", int)
+
+variable_expenses = get_expenses("variable")
+variable_frame = variable_expenses[0]
+
+# Printing area
+print()
+print("Recipe Name:", recipe_name)
+print("Servings:", serving_amount)
+print()
+print(variable_frame)
+print()
