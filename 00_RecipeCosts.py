@@ -90,9 +90,16 @@ def get_expenses(var_fixed):
 want_instructions = yes_no("Do you want to read the instructions? ").lower()
 
 if want_instructions == "yes" or want_instructions == "y":
-    print("Enter your recipe's ingredients to calculate costs")
+    print()
+    print("--- Instructions ---")
+    print()
+    print("This program will help you figure the recipe costs and create a table of the data")
+    print("Enter the recipe's name, serving amounts, ingredients, quantity, units, and price")
+    print("Enter XXX to enter any loops")
+    print("Fixed costs will also be opitional at the end")
+    print()
 
-recipe_name = not_blank("Whats the name of your recipe? ", "The product name can't be blank.")
+recipe_name = not_blank("Whats the name of your recipe? ", "The product name can't be blank. ")
 serving_amount = num_check("How many servings? ", "The amount must be a whole number more than zero", int)
 
 variable_expenses = get_expenses("variable")
@@ -105,3 +112,18 @@ print("Servings:", serving_amount)
 print()
 print(variable_frame)
 print()
+
+to_write = [recipe_name, serving_amount, variable_frame]
+
+# Write to file
+# Create file to hold data
+file_name = F"{recipe_name}.txt"
+text_file = open(file_name, "w+")
+
+# Heading
+for item in to_write:
+    text_file.write(item)
+    text_file.write("\n\n")
+
+# Close file
+text_file.close()

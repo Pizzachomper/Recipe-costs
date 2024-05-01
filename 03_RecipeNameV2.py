@@ -45,6 +45,10 @@ def not_blank(question, error):
         
         return response
 
+# Currency formatting function
+def currency(x):
+    return f"${x:.2f}"
+
 # Get ingredients, quantity, and units. Return as a list for printing
 def get_expenses(var_fixed):
     # Set up dictionaries and list
@@ -52,11 +56,13 @@ def get_expenses(var_fixed):
     ingredient_list = []
     quantity_list = []
     unit_list = []
+    price_list = []
 
     variable_dict = {
         "Ingredient": ingredient_list,
         "Quantity": quantity_list,
-        "Units": unit_list
+        "Units": unit_list,
+        "Price": price_list
     }
 
     # loop to get component, quantity, item
@@ -72,19 +78,31 @@ def get_expenses(var_fixed):
             break
 
         quantity = num_check("Quantity: ",
-                            "The amount must be a whole number more than zero", int)
+                            "The amount must be a whole number more than zero", float)
         
-        units = not_blank("What are the units for the item? ",
-                        "The units can't be blank")
+        units = input("What are the units for the item? ")
+                        
+        
+        price = num_check("Price for the item?: $",
+                            "The amount must be a whole number more than zero", float)
         
         # Add item, quantity and price to lists
         ingredient_list.append(ingredient_name)
         quantity_list.append(quantity)
         unit_list.append(units)
+        price_list.append(price)
 
     expense_frame = pandas.DataFrame(variable_dict)
 
-    return [expense_frame]
+    # Find total costs
+    var_total = expense_frame['Price'].sum()
+
+    # Currency Formatting
+    add_dollars = ['Price']
+    for item in add_dollars:
+        expense_frame[item] = expense_frame[item].apply(currency)
+
+    return [expense_frame, var_total]
 
 # Main routine
 recipe_name = not_blank("Whats the name of your recipe? ", "The product name can't be blank.")
@@ -92,6 +110,7 @@ serving_amount = num_check("How many servings? ", "The amount must be a whole nu
 
 variable_expenses = get_expenses("variable")
 variable_frame = variable_expenses[0]
+variable_sub = variable_expenses[1]
 
 # Printing area
 print()
@@ -100,3 +119,4 @@ print("Servings:", serving_amount)
 print()
 print(variable_frame)
 print()
+print(F"Variable Costs: ${variable_sub:.2f}")
