@@ -108,7 +108,7 @@ def get_expenses(var_fixed):
     for item in add_dollars:
         expense_frame[item] = expense_frame[item].apply(currency)
 
-    quantity_costs = (variable_sub / quantity_pp) * quantity
+    quantity_costs = (var_total / quantity_pp) * quantity
 
     return [expense_frame, var_total, quantity_costs]
 
@@ -122,7 +122,7 @@ variable_frame = variable_expenses[0]
 variable_sub = variable_expenses[1]
 quantity_costs = variable_expenses[2]
 
-serving_costs = variable_sub / serving_amount  
+serving_costs = quantity_costs / serving_amount  
 
 # Printing area
 print()
@@ -133,4 +133,4 @@ print(variable_frame)
 print()
 print(F"Total variable Costs of items: ${variable_sub:.2f}")
 print(F"Costs based on quantity of items used: ${quantity_costs:.2f}")
-print(F"Cost per serving: ${variable_sub:.2f}")
+print(F"Cost per serving: ${serving_costs:.2f}")
