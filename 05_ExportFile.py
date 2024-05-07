@@ -5,7 +5,9 @@ recipe_name_dict = {
     "Item": ["Eggs", "Flour", "Sugar", "Cinnamon"],
     "Quantity": [4, 200, 30, 15],
     "Units": ["", "grams", "grams", "grams"],
-    "Price": [13.50, 5, 7.5, 12]
+    "Price": [13.50, 5, 7.5, 12],
+    "Quantity per packet / box": [6, 1000, 1500, 100]
+
 }
 
 variable_frame = pandas.DataFrame(recipe_name_dict)
@@ -14,11 +16,10 @@ variable_frame = pandas.DataFrame(recipe_name_dict)
 variable_txt = pandas.DataFrame.to_string(variable_frame)
 
 recipe_name = "Pancakes"
-servings = "Servings: 4"
-total_price = "Total Price: $12"
-price_per_serve = "Price per serve: $5.00"
+recipe_name_string = "Recipe name: Pancakes\nServings: 4"
+total_price = "Total variable cost of items: $38\nCosts based on quantity of items used: $11.40\nCosts per serve: $2.85"
 
-to_write = [recipe_name, servings, variable_txt, total_price, price_per_serve]
+to_write = [recipe_name_string, variable_txt, total_price]
 
 # Write to file
 # Create file to hold data
