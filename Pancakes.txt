@@ -1,0 +1,23 @@
+Recipe Name: Pancakes
+Servings: 4
+
+*** Variable table ***
+  Ingredient  Quantity  Units   Price  Quantity per packet / box
+0       Eggs       4.0         $13.50                        6.0
+1      Flour     200.0  Grams   $5.00                     1000.0
+2      Sugar      30.0  Grams   $7.50                     1500.0
+3   Cinnamon      15.0  Grams  $12.00                      100.0
+
+Total variable Costs of items: $38.00
+Costs based on quantity of items used: $5.70
+Cost per serving: $1.43
+
+--- Fixed table ---
+   Ingredient  Quantity Units   Price  Quantity per packet / box
+0  Power Bill         1        $20.00                          1
+1  Water bill         1        $10.00                          1
+
+Total Fixed cost of the items: $30.00
+
+Total costs (Variable + fixed): $68.0
+
