@@ -90,17 +90,16 @@ def get_expenses(var_fixed):
         
         quantity_pp = num_check("What was the Quantity included in the packet / box: ",
                             "The amount must be a number more than zero", float)
+        
+        # Find the price based on the amount of quantity used in the packet
+        quantity_costs = (price / quantity_pp) * quantity
             
-        # Add ingredient name, quantity, units, price, and quantity per packet into lists
+        # Add ingredient name, quantity, units, price, and quantity per packet into lists, and quantity costs to list
         ingredient_list.append(ingredient_name)
         quantity_list.append(quantity)
         unit_list.append(units)
         price_list.append(price)
         quantity_pp_list.append(quantity_pp)
-        
-    # Find the price based on the amount of quantity used in the packet.
-    for item in price_list:
-        quantity_costs = (price / quantity_pp) * quantity
         quantity_costs_list.append(quantity_costs)
 
     # Use pandas to create table
@@ -156,8 +155,8 @@ print()
 
 # Turn variable items into strings to print out in the file
 recipe_name_string = F"Recipe Name: {recipe_name}\nServings: {serving_amount}"
-panda_frame_string = F"*** Table ***\n{expense_frame}"
-cost_string = F"Total costs of items: ${total_costs:.2f}\nCosts based on quantity of items used: ${total_quantity_costs:.2f}\nCost per serving: ${serving_costs:.2f}"
+panda_frame_string = F"*** Recipe Table ***\n{expense_frame}"
+cost_string = F"Total costs of items: ${total_costs:.2f}\nCosts based on quantity of items used: ${total_quantity_costs:.2f}\nCost per serving (based on quantity of items used): ${serving_costs:.2f}"
 
 # Printing area
 print()
