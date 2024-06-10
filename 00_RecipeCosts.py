@@ -45,18 +45,26 @@ def not_blank(question, error):
         
         return response
 
-# Get ingredients, quantity, and units. Return as a list
+# Currency formatting function
+def currency(x):
+    return f"${x:.2f}"
+
+# Get ingredients, quantity, and units. Return as a list for printing
 def get_expenses(var_fixed):
     # Set up dictionaries and list
 
     ingredient_list = []
     quantity_list = []
     unit_list = []
+    price_list = []
+    quantity_pp_list = []
 
     variable_dict = {
         "Ingredient": ingredient_list,
         "Quantity": quantity_list,
-        "Units": unit_list
+        "Units": unit_list,
+        "Price": price_list,
+        "Quantity per packet / box": quantity_pp_list
     }
 
     # loop to get component, quantity, item
@@ -72,19 +80,38 @@ def get_expenses(var_fixed):
             break
 
         quantity = num_check("Quantity: ",
-                            "The amount must be a whole number more than zero", int)
+                            "The amount must be a number more than zero", float)
         
-        units = not_blank("What are the units for the item? ",
-                        "The units can't be blank")
+        units = input("What are the units for the item? ")
+                        
+        
+        price = num_check("Price for the item?: $",
+                            "The amount must be a number more than zero", float)
+        
+        quantity_pp = num_check("What was the Quantity included in the packet / box: ",
+                            "The amount must be a number more than zero", float)
         
         # Add item, quantity and price to lists
         ingredient_list.append(ingredient_name)
         quantity_list.append(quantity)
         unit_list.append(units)
+        price_list.append(price)
+        quantity_pp_list.append(quantity_pp)
 
     expense_frame = pandas.DataFrame(variable_dict)
 
-    return [expense_frame]
+    # Find total costs
+    var_total = expense_frame['Price'].sum()
+
+    # Currency Formatting
+    add_dollars = ['Price']
+    for item in add_dollars:
+        expense_frame[item] = expense_frame[item].apply(currency)
+
+    quantity_costs = (var_total / quantity_pp) * quantity
+
+    return [expense_frame, var_total, quantity_costs]
+
 
 # Main routine goes here
 want_instructions = yes_no("Do you want to read the instructions? ").lower()
@@ -102,9 +129,13 @@ if want_instructions == "yes" or want_instructions == "y":
 recipe_name = not_blank("Whats the name of your recipe? ", "The product name can't be blank. ")
 serving_amount = num_check("How many servings? ", "The amount must be a whole number more than zero", int)
 
+# Get information from get expenses function
 variable_expenses = get_expenses("variable")
 variable_frame = variable_expenses[0]
+variable_sub = variable_expenses[1]
+quantity_costs = variable_expenses[2]
 
+serving_costs = quantity_costs / serving_amount  
 # Printing area
 print()
 print("Recipe Name:", recipe_name)
@@ -112,6 +143,9 @@ print("Servings:", serving_amount)
 print()
 print(variable_frame)
 print()
+print(F"Total variable Costs of items: ${variable_sub:.2f}")
+print(F"Costs based on quantity of items used: ${quantity_costs:.2f}")
+print(F"Cost per serving: ${serving_costs:.2f}")
 
 to_write = [recipe_name, serving_amount, variable_frame]
 

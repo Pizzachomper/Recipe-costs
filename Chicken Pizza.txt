@@ -1,0 +1,17 @@
+Recipe name: Chicken Pizza
+Servings: 8
+
+           Item  Quantity        Units  Price  Quantity per packet / box
+0         Yeast      2.25    Teaspoons   4.90                      34.00
+1         Flour      1.50         Cups   2.40                      18.00
+2     Olive oil      1.00  Tablespoons   9.45                      33.82
+3  Tomato paste      1.00  Tablespoons   1.60                      12.00
+4        Cheese      5.00       Ounces   8.50                      13.00
+5      Peperoni      0.25         Cups   3.80                       0.50
+6       Chicken      0.75         Cups   8.80                       4.00
+7      Capsicun      0.50         Cups   3.50                       1.50
+
+Total variable cost of items: $42.95
+Costs based on quantity of items used: $8.92
+Costs per serve: $1.12
+

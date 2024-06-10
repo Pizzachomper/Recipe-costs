@@ -28,7 +28,7 @@ def num_check(question, error, num_type):
                 return response
 
         except ValueError:
-            print("Please enter an integer")
+            print("Please enter a number")
             print()
 
 # Checks that user response is not blank
@@ -72,7 +72,7 @@ def get_expenses(var_fixed):
             break
 
         quantity = num_check("Quantity: ",
-                            "The amount must be a whole number more than zero", int)
+                            "The amount must be a number more than zero", float)
         
         units = not_blank("What are the units for the item? ",
                         "The units can't be blank")

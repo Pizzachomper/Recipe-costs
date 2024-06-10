@@ -27,7 +27,6 @@ def not_blank(question, error):
             print(error)
             continue
 
-        
         return response
 
 # Currency formatting function
@@ -70,7 +69,7 @@ def get_expenses(var_fixed):
     fix_total = expense_frame['Price'].sum()
 
     # Currency Formatting
-    add_dollars = ['Price', 'Cost']
+    add_dollars = ['Price']
     for item in add_dollars:
         expense_frame[item] = expense_frame[item].apply(currency)
 
@@ -80,10 +79,10 @@ def get_expenses(var_fixed):
 # Main routine
 
 # Get user data
-product_name = not_blank("Product name: ",
+product_name = not_blank("Recipe name: ",
                         "The product name can't be blank.")
 
-fixed_expenses = get_expenses("fixed")
+fixed_expenses = get_expenses("variable")
 fixed_frame = fixed_expenses[0]
 fixed_sub = fixed_expenses[1]
 

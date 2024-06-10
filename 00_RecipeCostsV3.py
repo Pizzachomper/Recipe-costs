@@ -28,7 +28,7 @@ def num_check(question, error, num_type):
                 return response
 
         except ValueError:
-            print("Please enter an integer")
+            print("Please enter a number")
             print()
 
 # Checks that user response is not blank

@@ -135,9 +135,9 @@ if want_instructions == "yes" or want_instructions == "y":
     print("--- Instructions ---")
     print()
     print("This program will help you figure the recipe costs and create a table of the data")
-    print("Enter the recipe's name, serving amounts, ingredients, quantity, units, and price")
-    print("Enter XXX to enter any loops")
-    print("Fixed costs will also be opitional at the end")
+    print("Enter the recipe's name, serving amounts, ingredients, quantity, quantity that was included in the packet / box units, and price")
+    print("Enter XXX to exit any loops")
+    print("Fixed costs will also be opitional at the end of the variable costs")
     print()
 
 recipe_name = not_blank("Whats the name of your recipe? ", "The product name can't be blank. ")
@@ -178,7 +178,7 @@ if have_fixed == "yes" or have_fixed == "y":
     
     # Turn fixed items into strings to print out in the file
     fixed_frame_string = F"--- Fixed table ---\n{fixed_frame}"
-    fixed_cost_string = F"Total Fixed cost of the items: ${fixed_sub:.2f}"
+    fixed_cost_string = F"Total fixed cost of the items: ${fixed_sub:.2f}"
     total_cost = F"Total costs (Variable + fixed): ${variable_sub + fixed_sub}"
     
     # Fixed printing area
@@ -194,7 +194,6 @@ else:
     fixed_frame_string = ""
     fixed_cost_string = ""
     total_cost = ""
-
 
 # Write to file
 to_write = [recipe_name_string, variable_frame_string, variable_cost_string, fixed_frame_string, fixed_cost_string, total_cost]
